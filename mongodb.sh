@@ -12,3 +12,4 @@ systemctl enable mongod &>>/tmp/roboshop.log
 systemctl restart mongod &>>/tmp/roboshop.log
 
 
+
