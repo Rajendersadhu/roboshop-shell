@@ -34,6 +34,5 @@ cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>/tm
 
 echo -e "\e[33minstall mongodb client\e[0m"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
-
 echo -e "\e[33mLoad Schema\e[0m"
 mongo --host mongodb-dev.sraji73.store </app/schema/user.js &>>/tmp/roboshop.log
