@@ -39,3 +39,4 @@ echo -e "\e[33mLoad Schema\e[0m"
 mongo --host mongodb-dev.sraji73.store </app/schema/catalogue.js &>>/tmp/roboshop.log
 
 
+
