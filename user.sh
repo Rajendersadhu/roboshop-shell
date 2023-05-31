@@ -21,7 +21,7 @@ cd /app &>>/tmp/roboshop.log
 echo -e "\e[33mdownload the dependencies\e[0m"
 npm install &>>/tmp/roboshop.log
 
-echo -e "\e[33mSetup SystemD Catalogue Service\e[0m"
+echo -e "\e[33mSetup SystemD user Service\e[0m"
 cp /home/centos/roboshop-shell/user.service /etc/systemd/system/user.service &>>/tmp/roboshop.log
 
 echo -e "\e[33mstart user service\e[0m"
