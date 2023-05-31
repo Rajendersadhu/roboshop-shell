@@ -11,3 +11,4 @@ echo -e "\e[33mstart mongoDB service\e[0m"
 systemctl enable mongod &>>/tmp/roboshop.log
 systemctl restart mongod &>>/tmp/roboshop.log
 
+
