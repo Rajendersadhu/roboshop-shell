@@ -34,7 +34,7 @@ echo -e "\e[33minstall mysql client\e[0m"
 yum install mysql -y &>>/tmp/roboshop.log
 
 echo -e "\e[33mLoad Schema\e[0m"
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql &>>/tmp/roboshop.log
+mysql -h mysql-dev.sraji73.store -uroot -pRoboShop@1 < /app/schema/shipping.sql &>>/tmp/roboshop.log
 
 echo -e "\e[33mrestarting this service\e[0m"
 systemctl restart shipping &>>/tmp/roboshop.log
