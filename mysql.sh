@@ -2,7 +2,7 @@ echo -e "\e[33mdisable MySQL 8 version\e[0m"
 yum module disable mysql -y &>>/tmp/roboshop.log
 
 echo -e "\e[33mSetup the MySQL5.7 repo file\e[0m"
-mysql.repo /etc/yum.repos.d/mysql.repo &>>/tmp/roboshop.log
+cp /home/centos/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo &>>/tmp/roboshop.log
 
 echo -e "\e[33mInstall MySQL Server\e[0m"
 yum install mysql-community-server -y &>>/tmp/roboshop.log
