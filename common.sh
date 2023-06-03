@@ -2,7 +2,36 @@
 color="\e[35m"
 nocolor="\e[0m"
 log_file="/tmp/roboshop.log"
+
 app_path="/app"
+
+app presetup() {
+  echo -e "${color} Add application User ${nocolor}"
+  useradd roboshop &>>$log_file
+
+  echo -e "${color} create application directory ${nocolor}"
+  rm -rf ${app_path} &>>$log_file
+  mkdir ${app_path} &>>$log_file
+
+  echo -e "${color} Download the application code ${nocolor}"
+  curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>$log_file
+  cd ${app_path} &>>$log_file
+
+  echo -e "${color} extracting the application ${nocolor}"
+  cd ${app_path} &>>$log_file
+  unzip /tmp/$component.zip &>>$log_file
+
+}
+
+systemd_setup() {
+  echo -e "${color} Setup SystemD $component Service ${nocolor}"
+  cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>$log_file
+
+  echo -e "${color} Start the service ${nocolor}"
+  systemctl enable $component &>>$log_file
+  systemctl start $component &>>$log_file
+
+}
 
 nodejs() {
   echo -e "${color} configuring nodejs repos ${nocolor}"
@@ -11,30 +40,14 @@ nodejs() {
   echo -e "${color} installing nodejs ${nocolor}"
   yum install nodejs -y &>>$log_file
 
-  echo -e "${color} Add application User ${nocolor}"
-  useradd roboshop &>>$log_file
-  echo -e "${color} create application directory ${nocolor}"
-  rm -rf ${app_path} &>>$log_file
-  mkdir ${app_path} &>>$log_file
-
-  echo -e "${color} Download the application code ${nocolor}"
-  curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>$log_file
-  cd ${app_path} &>>$log_file
-
-  echo -e "${color} extracting the application ${nocolor}"
-  unzip /tmp/$component.zip &>>$log_file
-  cd ${app_path} &>>$log_file
+  app_presetup
 
   echo -e "${color} download the dependencies ${nocolor}"
   npm install &>>$log_file
 
-  echo -e "${color} Setup SystemD Catalogue Service ${nocolor}"
-  cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>$log_file
+  systemd_setup
 
-  echo -e "${color} start catalogue service ${nocolor}"
-  systemctl daemon-reload &>>$log_file
-  systemctl enable$component &>>$log_file
-  systemctl start $component &>>$log_file
+
 }
 
 mongo_schema_setup() {
@@ -48,3 +61,33 @@ mongo_schema_setup() {
   mongo --host mongodb-dev.sraji73.store </app/schema/$component.js &>>$log_file
 
 }
+
+mysql_schema_setup() {
+  echo -e "${color} install mysql client ${nocolor}"
+  yum install mysql -y &>>$log_file
+
+  echo -e "${color} Load Schema ${nocolor}"
+  mysql -h mysql-dev.sraji73.store -uroot -pRoboShop@1 < ${app_path}/schema/$component.sql &>>$log_file
+
+
+}
+
+maven() {
+  echo -e "${color} install maven ${nocolor}"
+  yum install maven -y &>>$log_file
+
+  app_presetup
+
+  echo -e "${color} download the dependencies ${nocolor}"
+  cd ${app_path} &>>$log_file
+  mvn clean package &>>$log_file
+  mv target/$component-1.0.jar $component.jar &>>$log_file
+
+ echo -e "${color} Load the service ${nocolor}"
+  systemctl daemon-reload &>>$log_file
+
+  mysql_schema_setup
+  systemd_setup
+
+}
+
