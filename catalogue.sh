@@ -2,7 +2,7 @@ source common.sh
 component=catalogue
 
 
-
+nodejs
 
 echo -e "${color} copy mongodb repo file ${nocolor}"
 cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$log_file
