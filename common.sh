@@ -108,6 +108,7 @@ python () {
   echo -e "${color} download the dependencies ${nocolor}"
   cd /app &>>/tmp/roboshop.log
   pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
+  echo $?
 
   systemd_setup
 
