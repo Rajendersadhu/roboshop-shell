@@ -1,7 +1,11 @@
 source common.sh
-component=$component
+component=cart
 
 nodejs
+mongo_schema_setup
+
+
+
 
 
 
