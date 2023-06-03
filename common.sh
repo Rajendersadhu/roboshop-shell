@@ -5,7 +5,7 @@ log_file="/tmp/roboshop.log"
 
 app_path="/app"
 
-app presetup() {
+app_presetup() {
   echo -e "${color} Add application User ${nocolor}"
   useradd roboshop &>>$log_file
 
