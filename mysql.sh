@@ -22,8 +22,4 @@ mysql_secure_installation --set-root-pass $1 &>>/tmp/roboshop.log
 stat_check $?
 
 
- echo -e "${color} check the new password ${nocolor}"
-mysql -uroot -pRoboShop@1 &>>/tmp/roboshop.log
-stat_check $?
-
 
