@@ -74,10 +74,10 @@ nodejs() {
 
   echo -e "${color} download the dependencies ${nocolor}"
   npm install &>>$log_file
-
+  stat_check $?
 
   systemd_setup
-  stat_check $?
+
 
 }
 
