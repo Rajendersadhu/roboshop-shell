@@ -3,7 +3,7 @@ component=shipping
 
 maven
 
-mysql_schema_setup
+
 
 
 

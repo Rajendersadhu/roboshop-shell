@@ -124,6 +124,7 @@ maven() {
   stat_check $?
 
   mysql_schema_setup
+
   systemd_setup
   stat_check $?
 
