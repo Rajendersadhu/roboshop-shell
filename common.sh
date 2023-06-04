@@ -9,6 +9,7 @@ if [ $user_id -ne 0 ]; then
 fi
 
 app_path="/app"
+
 stat_check() {
      if [ $1 -eq 0 ]; then
         echo SUCCESS
@@ -63,42 +64,52 @@ systemd_setup() {
 nodejs() {
   echo -e "${color} configuring nodejs repos ${nocolor}"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+  stat_check $?
 
   echo -e "${color} installing nodejs ${nocolor}"
   yum install nodejs -y &>>$log_file
+  stat_check $?
 
   app_presetup
 
   echo -e "${color} download the dependencies ${nocolor}"
   npm install &>>$log_file
 
+
   systemd_setup
+  stat_check $?
 
 }
 
 mongo_schema_setup() {
   echo -e "${color} copy mongodb repo file ${nocolor}"
   cp /home/centos/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$log_file
+  stat_check $?
 
   echo -e "${color} install mongodb client ${nocolor}"
   yum install mongodb-org-shell -y &>>$log_file
+  stat_check $?
 
   echo -e "${color} Load Schema ${nocolor}"
   mongo --host mongodb-dev.sraji73.store </app/schema/$component.js &>>$log_file
+  stat_check $?
 
 }
 
 mysql_schema_setup() {
   echo -e "${color} install mysql client ${nocolor}"
   yum install mysql -y &>>$log_file
+  stat_check $?
 
   echo -e "${color} Load Schema ${nocolor}"
   mysql -h mysql-dev.sraji73.store -uroot -pRoboShop@1 < ${app_path}/schema/$component.sql &>>$log_file
+  stat_check $?
 
 }
 maven() {
   echo -e "${color} install maven ${nocolor}"
   yum install maven -y &>>$log_file
+  stat_check $?
 
   app_presetup
 
@@ -106,12 +117,15 @@ maven() {
   cd ${app_path} &>>$log_file
   mvn clean package &>>$log_file
   mv target/$component-1.0.jar $component.jar &>>$log_file
+  stat_check $?
 
   echo -e "${color} Load the service ${nocolor}"
   systemctl daemon-reload &>>$log_file
+  stat_check $?
 
   mysql_schema_setup
   systemd_setup
+  stat_check $?
 
 }
 
@@ -130,5 +144,7 @@ python () {
   stat_check $?
 
   systemd_setup
+
+
 
 }
