@@ -51,7 +51,7 @@ app_presetup() {
 systemd_setup() {
   echo -e "${color} Setup SystemD $component Service ${nocolor}"
   cp /home/centos/roboshop-shell/$component.service /etc/systemd/system/$component.service &>>$log_file
-  sed -i -e "s/roboshop_app_password/$roboshop_app_password/" /home/centos/roboshop-shell/$component.service
+  sed -i -e "s/roboshop_app_password/$roboshop_app_password/" /etc/systemd/system/$component.service
   stat_check $?
 
   echo -e "${color} Start the service ${nocolor}"
