@@ -120,14 +120,11 @@ maven() {
   mv target/$component-1.0.jar $component.jar &>>$log_file
   stat_check $?
 
-  echo -e "${color} Load the service ${nocolor}"
-  systemctl daemon-reload &>>$log_file
-  stat_check $?
 
   mysql_schema_setup
 
   systemd_setup
-  stat_check $?
+
 
 }
 
