@@ -135,7 +135,6 @@ python () {
 
   echo -e "${color} install python ${nocolor}"
   yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
-
   stat_check $?
   app_presetup
 
@@ -146,7 +145,5 @@ python () {
   stat_check $?
 
   systemd_setup
-
-
 
 }
