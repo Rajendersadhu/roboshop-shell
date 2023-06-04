@@ -1,3 +1,6 @@
+
+
+source common.sh
 echo -e "\e[33minstalling nginx server\e[0m"
 yum install nginx -y &>>/tmp/roboshop.log
   stat_check $?
