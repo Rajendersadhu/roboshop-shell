@@ -78,7 +78,6 @@ nodejs() {
 
   systemd_setup
 
-
 }
 
 mongo_schema_setup() {
@@ -124,7 +123,6 @@ maven() {
   mysql_schema_setup
 
   systemd_setup
-
 
 }
 
