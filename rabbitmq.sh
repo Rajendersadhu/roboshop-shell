@@ -1,6 +1,5 @@
 
 
-
 source common.sh
 echo -e "${color}configure erlang repos ${nocolor}"
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>>/tmp/roboshop.log
@@ -23,6 +22,7 @@ echo -e "${color}add rabbitmq application user ${nocolor}"
 rabbitmqctl add_user roboshop $1 &>>/tmp/roboshop.log
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>/tmp/roboshop.log
 stat_check $?
+
 
 
 

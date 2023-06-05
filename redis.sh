@@ -12,6 +12,7 @@ stat_check $?
 echo -e "${color} Install Redis ${nocolor}"
 yum install redis -y &>>/tmp/roboshop.log
 stat_check $?
+
 echo -e "${color} update redis listen address ${nocolor}"
 sed -i 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf &>>/tmp/roboshop.log
 stat_check $?
@@ -20,4 +21,5 @@ echo -e "${color} Start & Enable Redis Service ${nocolor}"
 systemctl enable redis &>>/tmp/roboshop.log
 systemctl start redis &>>/tmp/roboshop.log
 stat_check $?
+
 
