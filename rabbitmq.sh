@@ -9,7 +9,7 @@ curl -s https://packagecloud.io/install/repositories/$component/erlang/script.rp
 stat_check $?
 
 echo -e "${color}configure $component repos ${nocolor}"
-curl -s https://packagecloud.io/install/repositories/$component/$component-server/script.rpm.sh | bash &>>/tmp/roboshop.log
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>>/tmp/roboshop.log
 stat_check $?
 
 echo -e "${color}Install $component ${nocolor}"
